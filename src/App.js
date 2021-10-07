@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const value1 = Math.floor(Math.random() * 100);
-const value2 = Math.floor(Math.random() * 100);
-const value3 = Math.floor(Math.random() * 100);
+const randomMathValue = () => Math.floor(Math.random() * 100);
+
+let value1 = randomMathValue();
+let value2 = randomMathValue();
+let value3 = randomMathValue();
 
 class App extends Component {
   state = {
@@ -17,12 +19,15 @@ class App extends Component {
     numQuestions: 0
   }
   regenerateNumbers = () => {
+    value1 = randomMathValue();
+    value2 = randomMathValue();
+    value3 = randomMathValue();
     this.setState((prevState) => ({
-      value1: Math.floor(Math.random() * 100),
-      value2: Math.floor(Math.random() * 100),
-      value3: Math.floor(Math.random() * 100),
-      correctAnswer: (prevState.value1 + prevState.value2 + prevState.value3),
-      proposedAnswer: Math.floor(Math.random() * 3) + prevState.value1 + prevState.value2 + prevState.value3,
+      value1: value1,
+      value2: value2,
+      value3: value3,
+      correctAnswer: (value1 + value2 + value3),
+      proposedAnswer: Math.floor(Math.random() * 3) + value1 + value2 + value3,
       numQuestions: prevState.numQuestions + 1
     }))
   }
@@ -31,6 +36,7 @@ class App extends Component {
       numCorrect: prevState.numCorrect + 1
     }))
     this.regenerateNumbers();
+    alert('Correct answer!');
   }
   checkAnswer = (option) => {
     (option === true) ? (
